@@ -4,27 +4,32 @@ public class TrainConsistApp {
 
     public static void main(String[] args) {
 
-        System.out.println("=== Train Consist Management App (UC5: Preserve Insertion Order) ===");
+        System.out.println("=== Train Consist Management App (UC6: Map Bogie to Capacity) ===\n");
 
-        // Initialize LinkedHashSet for train formation
-        LinkedHashSet<String> trainFormation = new LinkedHashSet<>();
+        // Create a HashMap to store bogie name -> capacity mapping
+        HashMap<String, Integer> bogieCapacityMap = new HashMap<>();
 
-        // Attach bogies (duplicates will be ignored)
-        trainFormation.add("Engine");
-        trainFormation.add("Sleeper");
-        trainFormation.add("Cargo");
-        trainFormation.add("Guard");
+        // Insert bogie-capacity entries
+        bogieCapacityMap.put("Sleeper", 72);
+        bogieCapacityMap.put("AC Chair", 54);
+        bogieCapacityMap.put("First Class", 36);
+        bogieCapacityMap.put("Cargo", 1000); // in kg, for goods bogie
 
-        // Attempt to add duplicate bogie
-        trainFormation.add("Sleeper"); // duplicate, will be ignored
-
-        // Display final formation order
-        System.out.println("\nFinal Train Formation (in insertion order, duplicates ignored):");
-        for (String bogie : trainFormation) {
-            System.out.println("- " + bogie);
+        // Display bogie and capacity details
+        System.out.println("Bogie Capacity Details:");
+        for (Map.Entry<String, Integer> entry : bogieCapacityMap.entrySet()) {
+            System.out.println("- " + entry.getKey() + " : " + entry.getValue() +
+                    (entry.getKey().equals("Cargo") ? " kg" : " seats"));
         }
 
-        // Display total bogies
-        System.out.println("\nTotal bogies in formation: " + trainFormation.size());
+        // Lookup example: get capacity of a specific bogie
+        String lookupBogie = "AC Chair";
+        if (bogieCapacityMap.containsKey(lookupBogie)) {
+            System.out.println("\nCapacity of " + lookupBogie + " bogie: " +
+                    bogieCapacityMap.get(lookupBogie) + " seats");
+        }
+
+        // Display total bogies tracked
+        System.out.println("\nTotal bogies tracked: " + bogieCapacityMap.size());
     }
 }
